@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript | With Throttling</title>
+  </head>
+  <body>
+    <input type="text" id="throttleInput" />
+    <script>
+      const inp = document.querySelector("#throttleInput");
+
+      const throttleFunction = (func, delay) => {
+        let prev = 0;
+        return (...args) => {
+          let now = new Date().getTime();
+          console.log(now - prev, delay);
+          if (now - prev > delay) {
+            prev = now;
+            return func(...args);
+          }
+        };
+      };
+
+      inp.addEventListener(
+        "keyup",
+        throttleFunction(() => {
+          const Input = document.querySelector("#throttleInput").value;
+          console.log(Input);
+        }, 1500)
+      );
+    </script>
+  </body>
+</html>
